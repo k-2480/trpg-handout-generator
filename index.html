@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <main class="flex-box" id="app">
+    <div class="tab-group">
+      <span id="card-input-tab" class="tab active" data-target="card-input" v-on:click="toggleTabs">ハンドアウト入力</span>
+      <span id="card-output-tab" class="tab" data-target="card-output" v-on:click="toggleTabs">ハンドアウト出力</span>
+    </div>
+    <div id="card-input" class="tab-content">
+      <ul class="none-point-list" id="input-area">
+        <li v-for="card in cardList">
+          <div class="flex center">
+            <div class="mark">
+              <span>{{ card.id * 1.0 + 1 }}</span>
+            </div>
+            <div class="card-form-group">
+              <div class="card-input-front">
+                <div class="card-title">
+                  <label v-bind:id="'card-title-' + card.id">【使命】タイトル</label>
+                  <textarea v-bind:name="'card-title-' + card.id" v-model="card.front.title"></textarea>
+                </div>
+                <div class="card-heading">
+                  <label v-bind:id="'card-heading-' + card.id">見出し</label>
+                  <textarea v-bind:name="'card-heading-' + card.id" v-model="card.front.heading"></textarea>
+                </div>
+                <div class="card-content">
+                  <label v-bind:id="'card-content-' + card.id">内容</label>
+                  <textarea v-bind:name="'card-content-' + card.id" v-model="card.front.content"></textarea>
+                </div>
+              </div>
+              <div class="card-input-back">
+                <div class="card-title">
+                  <label v-bind:id="'card-shock-' + card.id">【秘密】ショック</label>
+                  <textarea v-bind:name="'card-shock-' + card.id" v-model="card.back.shock"></textarea>
+                </div>
+                <div class="card-content">
+                  <label v-bind:id="'card-secret-' + card.id">内容</label>
+                  <textarea v-bind:name="'card-secret-' + card.id" v-model="card.back.secret"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="text-middle">
+              <button class="form-large-button" v-on:click="deleteCard" v-bind:id="'card-delete-button-' + card.id"
+                v-bind:data-cardnum="card.id">削除</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div id="controller">
+        <button v-on:click="addCard">追加</button>
+      </div>
+    </div>
+    <div id="card-output" class="tab-content hidden">
+      <div class="flex center caption">
+        <!-- <button>まとめてダウンロード</button> -->
+        <p>※画像は右クリックから保存してください</p>
+      </div>
+      <ul class="flex center none-point-list">
+        <li class="canvas-list" v-for="card in cardList">
+          <canvas width="350" height="500" class="card-canvas" v-bind:id="'card-front-canvas-' + card.id"
+            v-bind:data-canvasnum="card.id" data-type="front"></canvas>
+
+          <canvas width="350" height="500" class="card-canvas" v-bind:id="'card-back-canvas-' + card.id"
+            v-bind:data-canvasnum="card.id" data-type="back"></canvas>
+        </li>
+      </ul>
+    </div>
+  </main>
+  <script src="index.js"></script>
+</body>
+
+</html>

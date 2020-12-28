@@ -1,0 +1,205 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.flex.top {
+  align-items: top;
+}
+
+.flex.center {
+  align-items: center;
+}
+
+.flex.middle input[type="checkbox"] {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.flex.column {
+  flex-direction: column;
+}
+
+.flex.left {
+  justify-content: left;
+}
+
+.flex > div {
+  margin-right: 1rem;
+}
+
+.flex > div label {
+  display: block;
+  font-weight: bold;
+}
+
+.flex.wrap {
+  flex-wrap: wrap;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-middle {
+  display: flex;
+  align-items: center;
+}
+
+.form-large-button {
+  padding: 1rem;
+}
+
+.flex-box {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+ul.none-point-list {
+  list-style: none;
+}
+
+div.mark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  margin-right: 2.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 10%;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+.card-canvas {
+  display: block;
+  border: 1px solid black;
+}
+
+#input-area li {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#input-area li:nth-child(even) {
+  background: rgba(0,0,0,0.1);
+}
+
+.card-form-group {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 60%;
+}
+
+.card-input-front {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  border-bottom: 1px dashed gray;
+}
+
+.card-input-front > div,
+.card-input-back > div {
+  margin-right: 0.3rem;
+}
+
+.card-input-back {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.card-title {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-heading {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+textarea {
+  min-height: 3rem;
+  resize: none;
+}
+
+.tab-group {
+  display: flex;
+  justify-content: left;
+  padding-top: 1rem;
+}
+
+.tab-group {
+  background-color: black;
+}
+
+.tab-group .tab {
+  padding: 1rem;
+  background-color: lightgray;
+  border-radius: 1rem 1rem 0 0;
+  flex-basis: 20rem;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tab-group .tab.active {
+  background: white;
+}
+
+.tab-content {
+  padding: 2rem 0 2rem 0;
+}
+
+#card-output.tab-content {
+  padding-left: 0.5rem;
+}
+
+#controller {
+  display: flex;
+  justify-content: center;
+}
+
+#controller > button {
+  margin: 2rem 10% 0 10%;
+  padding: 1rem 0;
+  flex-grow: 1;
+}
+
+.canvas-list {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.caption {
+  margin-bottom: 1rem;
+}
