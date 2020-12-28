@@ -1,3 +1,8 @@
+window.onbeforeunload = function (event) {
+    event = event || window.event;
+    event.returnValue = 'ページをリロードすると内容が失われますがよろしいですか？';
+}
+
 /**
  * 半角英数字を全角英数字に変換して返却する
  * @param {String} str 
@@ -65,8 +70,9 @@ function generateFormObject(id) {
             content: ''
         },
         back: {
-            shock: '',
-            secret: ''
+            title: '',
+            heading: '',
+            content: ''
         }
     }
 }
@@ -139,7 +145,7 @@ function allCanvasRedraw(cardList) {
 
         /* 見出し */
         //var headingText = (isFront ? card.front.heading : 'トリガー')
-        var headingText = (isFront ? card.front.heading : 'ショック')
+        var headingText = (isFront ? card.front.heading : card.back.heading)
         oldFont = context.font
         context.font =  '14px ' + fontFamily
         context.fillStyle = 'black'
@@ -150,7 +156,7 @@ function allCanvasRedraw(cardList) {
         context.fillStyle = 'black'
         oldFont = context.font
         context.font = '16px ' + fontFamily
-        context.fillText((isFront ? card.front.title : card.back.shock), 85, 60 - 8, 20 * fontSize)
+        context.fillText((isFront ? card.front.title : card.back.title), 85, 60 - 8, 20 * fontSize)
         context.font = oldFont
 
         /* 内容 */
@@ -160,7 +166,7 @@ function allCanvasRedraw(cardList) {
             yOffset: 90
         }
         context.font = fontSize + 'px ' + fontFamily
-        var titleStr = han2zen((isFront ? card.front.content : card.back.secret)).slice('')
+        var titleStr = han2zen((isFront ? card.front.content : card.back.content)).slice('')
         var maxColumn = Math.floor((element.width - canvasPadding * 2) / fontSize)
         for (var i = 0; i < titleStr.length; i++) {
             drawChar(titleStr[i], charInfo, canvasPadding, fontSize, maxColumn)

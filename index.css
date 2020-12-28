@@ -101,21 +101,33 @@ div.mark {
   padding-bottom: 1rem;
 }
 
-#input-area li:nth-child(even) {
-  background: rgba(0,0,0,0.1);
+#input-area li {
+  border-top: 1px dotted gray;
 }
 
 .card-form-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-basis: 60%;
 }
 
+.card-form-group h2 {
+  font-size: 1.2em;
+  font-weight: normal;
+}
+
+.card-form-group input {
+  min-height: 2rem;
+  text-indent: 0.5rem;
+}
+
 .card-input-front {
+  background: #EEE;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  flex-basis: 50%;
   padding: 1rem;
-  border-bottom: 1px dashed gray;
 }
 
 .card-input-front > div,
@@ -124,8 +136,11 @@ div.mark {
 }
 
 .card-input-back {
+  background: #CCC;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  flex-basis: 50%;
   padding: 1rem;
 }
 
@@ -145,6 +160,10 @@ div.mark {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+.card-content > textarea {
+  min-height: 10rem;
 }
 
 textarea {
