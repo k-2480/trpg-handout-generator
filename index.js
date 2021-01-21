@@ -195,9 +195,16 @@ var vm = new Vue({
     data: {
         cardList: [
             generateFormObject(0)
-        ]
+        ],
+        isAddCard: false
     },
-    updated: function() {allCanvasRedraw(this.cardList)},
+    updated: function() {
+        allCanvasRedraw(this.cardList)
+        if (this.isAddCard) {
+            this.scrollWindow()
+            this.isAddCard = false
+        }
+    },
     methods: {
         addCard: function() {
             var maxCardId = 0
@@ -214,6 +221,7 @@ var vm = new Vue({
 
             // 新たなカードデータをカードリストに追加する
             this.cardList.push(generateFormObject(nextCardId))
+            this.isAddCard = true
         },
         deleteCard: function(element) {
             var targetCardNum = element.target.dataset.cardnum
@@ -244,6 +252,11 @@ var vm = new Vue({
             targetTabContentNodeList.forEach(function(element) {
                 element.classList.toggle('hidden')
             })
+        },
+        scrollWindow: function() {
+            var element = document.documentElement
+            var bottom = element.scrollHeight - element.clientHeight
+            window.scroll(0, bottom)
         }
     }
 })
