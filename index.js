@@ -134,7 +134,7 @@ function allCanvasRedraw(cardList) {
         context.fillRect(0, 0, element.width, element.height)
 
         /* キャンバス設定 */
-        var fontSize = 20
+        var fontSize = 40
         var fontFamily = (isFront ? card.front.font : card.back.font)
         
         /* 基本描画設定 */
@@ -142,32 +142,33 @@ function allCanvasRedraw(cardList) {
         context.font = fontSize + "px " + fontFamily
         context.textAlign = "left"
         context.textBaseline = "top"
+        context.lineWidth = 2.0
 
         // レイアウト情報
-        cardLayoutInfo = {
+        var cardLayoutInfo = {
             content: {
-                top: 80,
-                left: 10,
-                width: element.width - 20,
-                height: element.height - 90,
+                top: 160,
+                left: 20,
+                width: element.width - 40,
+                height: element.height - 180,
                 isBordered: true,
-                textPadding: 6
+                textPadding: 12
             },
             heading: {
-                top: 40,
-                left: 10,
-                width: 70,
-                height: 40,
+                top: 80,
+                left: 20,
+                width: 140,
+                height: 80,
                 isBordered: true,
-                textPadding: 10
+                textPadding: 20
             },
             title: {
-                top: 40,
-                left: 80,
-                width: element.width - 90,
-                height: 40,
+                top: 80,
+                left: 160,
+                width: element.width - 180,
+                height: 80,
                 isBordered: true,
-                textPadding: 10
+                textPadding: 20
             }
         }
 
@@ -192,7 +193,7 @@ function allCanvasRedraw(cardList) {
 
         /* キャプション */
         var caption = han2zen(isFront ? card.front.name : card.back.name)
-        var captionSize = 20
+        var captionSize = 40
         var oldFont = context.font
         var captionWidth = caption.length * captionSize
         if (captionWidth > element.width) {
@@ -201,31 +202,31 @@ function allCanvasRedraw(cardList) {
         var captionX = (element.width - captionWidth) / 2
         context.fillStyle = (isFront ? 'black' : 'white')
         context.font =  'bold ' + captionSize + 'px ' + fontFamily
-        context.fillText(caption, captionX, 10, element.width)
+        context.fillText(caption, captionX, 20, element.width)
         context.font = oldFont
 
         /* 見出し */
         var headingText = (isFront ? card.front.heading : card.back.heading)
         var headingParam = {
-            left: 15,
-            top: 53,
-            maxWidth: 60
+            left: 30,
+            top: 100,
+            maxWidth: 120
         }
         oldFont = context.font
-        context.font =  '14px ' + fontFamily
+        context.font =  '40px ' + fontFamily
         context.fillStyle = 'black'
         context.fillText(headingText, headingParam.left, headingParam.top, headingParam.maxWidth)
         context.font = oldFont
 
         /* タイトル */
         var titleParam = {
-            left: 85,
-            top: 52,
-            maxWidth: 250
+            left: 170,
+            top: 100,
+            maxWidth: 500
         }
         context.fillStyle = 'black'
         oldFont = context.font
-        context.font = '16px ' + fontFamily
+        context.font = '40px ' + fontFamily
         context.fillText((isFront ? card.front.title : card.back.title), titleParam.left, titleParam.top, titleParam.maxWidth)
         context.font = oldFont
 
@@ -247,7 +248,7 @@ function allCanvasRedraw(cardList) {
         context.font = charInfo.fontSize + 'px ' + fontFamily
         var maxColumn = Math.floor(contentWidth / charInfo.fontSize) 
         for (var i = 0; i < titleStr.length; i++) {
-            drawChar(titleStr[i], charInfo, cardLayoutInfo.content.left + cardLayoutInfo.content.textPadding, charInfo.fontSize, maxColumn)
+            drawChar(titleStr[i], charInfo, cardLayoutInfo.content.left + cardLayoutInfo.content.textPadding, charInfo.fontSize, contentWidth)
         }
         fontSize = oldFontSize
 
@@ -259,12 +260,12 @@ function allCanvasRedraw(cardList) {
             }
             for (var i = 0; i < titleStrArr.length; i++) {
                 contentInfo.x++
-                if (titleStrArr[i] == '\n' || contentInfo.x * contentInfo.fontSize > contentWidth) {
+                if (titleStrArr[i] == '\n' || (1 + contentInfo.x) * contentInfo.fontSize > contentWidth) {
                     contentInfo.x = 0
-                    contentInfo.y++
+                    contentInfo.y += 1.5
                 }
-                if ((contentInfo.y + 1) * contentInfo.fontSize > contentHeight) {
-                    contentInfo.fontSize--
+                if ((contentInfo.y + 1.5) * contentInfo.fontSize > contentHeight) {
+                    contentInfo.fontSize -= 0.5
                     i = 0
                     contentInfo.x = 0
                     contentInfo.y = 0
@@ -274,18 +275,18 @@ function allCanvasRedraw(cardList) {
             return contentInfo.fontSize
         }
 
-        function drawChar(char, charInfo, padding, fontSize, maxColumn) {
+        function drawChar(char, charInfo, padding, fontSize, contentWidth) {
             context.fillText(char,
                 padding + (charInfo.x * fontSize),
                 charInfo.yOffset + charInfo.y * fontSize,
-                maxColumn * fontSize)
+                contentWidth)
 
             charInfo.x++
 
             if (char == '\n'
-                || charInfo.x > maxColumn - 1) {
+                || (1 + charInfo.x) * fontSize > contentWidth) {
                 charInfo.x = 0
-                charInfo.y += 1
+                charInfo.y += 1.5
             }
         }
     })
@@ -394,6 +395,9 @@ var vm = new Vue({
                     label.classList.add('focus')
                 }
             })
+        },
+        zoomCanvas: function(element) {
+            element.target.classList.toggle('zoom')
         }
     }
 })

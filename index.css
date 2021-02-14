@@ -170,6 +170,16 @@ div.mark {
 .card-canvas {
   display: block;
   border: 1px solid black;
+  width: 350px;
+  height: 500px;
+  transition: .2s;
+  cursor: zoom-in;
+}
+
+.zoom {
+  width: 700px;
+  height: 1000px;
+  cursor: zoom-out;
 }
 
 #input-area li {
