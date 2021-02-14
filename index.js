@@ -298,13 +298,18 @@ var vm = new Vue({
         cardList: [
             generateFormObject(0)
         ],
-        isAddCard: false
+        isAddCard: false,
+        isDeleteCard: false
     },
     updated: function() {
         allCanvasRedraw(this.cardList)
         if (this.isAddCard) {
             this.scrollWindow()
             this.isAddCard = false
+        }
+        if (this.isDeleteCard) {
+            this.resetFocusInputForm()
+            this.isDeleteCard = false
         }
     },
     methods: {
@@ -346,6 +351,8 @@ var vm = new Vue({
             for (var i = targetCardNum; i < this.cardList.length; i++) {
                 this.cardList[i].id = i
             }
+
+            this.isDeleteCard = true
         },
         toggleTabs: function(element) {
             if (element.target.classList.contains('active')) {
@@ -375,6 +382,18 @@ var vm = new Vue({
             if (element.target.value == '') {
                 label.classList.toggle('focus')
             }
+        },
+        resetFocusInputForm: function() {
+            var cardFormGroupInput = document.querySelectorAll('.card-form-group input, .card-form-group textarea')
+            cardFormGroupInput.forEach(element => {
+                console.log(element.value)
+                var label = element.nextElementSibling
+                if (element.value == '') {
+                    label.classList.remove('focus')
+                } else {
+                    label.classList.add('focus')
+                }
+            })
         }
     }
 })
