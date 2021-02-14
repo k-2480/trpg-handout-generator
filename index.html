@@ -66,7 +66,7 @@
               <div class="card-input-back">
                 <h2>ウラ</h2>
                 <div class="input-form card-name">
-                  <input v-bind:id="'card-back-name-' + card.id" type="text" v-bind:name="'card-back-name-' + card.id" v-model="card.back.name" value v-bind:style="'font-family: ' + card.back.name" v-on:focusin="focusInputForm" v-on:focusout="focusInputForm">
+                  <input v-bind:id="'card-back-name-' + card.id" type="text" v-bind:name="'card-back-name-' + card.id" v-model="card.back.name" value v-bind:style="'font-family: ' + card.back.font" v-on:focusin="focusInputForm" v-on:focusout="focusInputForm">
                   <label class="focus" v-bind:for="'card-back-name-' + card.id">カード名</label>
                 </div>
                 <div class="input-form card-heading">
