@@ -101,7 +101,7 @@ function checkFormObjectNoUpdate(formObject) {
         }
     })
     Object.keys(back).forEach(key => {
-        if (front[key] != defaultFormObject.back[key]) {
+        if (back[key] != defaultFormObject.back[key]) {
             emptyFlg = false
             return
         }
