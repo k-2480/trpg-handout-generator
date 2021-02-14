@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>trpg-handout-generator</title>
   <link rel="stylesheet" href="index.css">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
+  <header>
+    <div class="github-link">
+      <a href="https://github.com/k-2480/trpg-handout-generator" target="_blank">
+        <img src="image/mark-github.svg" alt="Githubのロゴアイコン">
+      </a>
+    </div>
+  </header>
   <main class="flex-box" id="app">
     <div class="tab-group">
       <span id="card-input-tab" class="tab active" data-target="card-input" v-on:click="toggleTabs">ハンドアウト入力</span>
@@ -18,51 +25,87 @@
     <div id="card-input" class="tab-content">
       <ul class="none-point-list" id="input-area">
         <li v-for="card in cardList">
-          <div class="flex center">
+          <div class="flex">
             <div class="mark">
               <span>{{ card.id * 1.0 + 1 }}</span>
             </div>
             <div class="card-form-group">
               <div class="card-input-front">
-                <h2>【使命】</h2>
-                <div class="card-heading">
-                  <label v-bind:id="'card-heading-' + card.id">見出し</label>
-                  <input type="text" v-bind:name="'card-heading-' + card.id" v-model="card.front.heading" value>
+                <h2>オモテ</h2>
+                <div class="input-form card-name">
+                  <input v-bind:id="'card-name-' + card.id" type="text" v-bind:name="'card-name-' + card.id" v-model="card.front.name" value v-bind:style="'font-family: ' + card.front.font" v-on:focusin="focusInputForm" v-on:focusout="focusInputForm">
+                  <label class="focus" v-bind:for="'card-name-' + card.id">カード名</label>
                 </div>
-                <div class="card-title">
-                  <label v-bind:id="'card-title-' + card.id">タイトル</label>
-                  <input type="text" v-bind:name="'card-title-' + card.id" v-model="card.front.title" value>
+                <div class="input-form card-heading">
+                  <input v-bind:id="'card-heading-' + card.id" type="text" v-bind:name="'card-heading-' + card.id" v-model="card.front.heading" value v-bind:style="'font-family: ' + card.front.font" v-on:focusin="focusInputForm" v-on:focusout="focusInputForm">
+                  <label v-bind:for="'card-heading-' + card.id">見出し</label>
                 </div>
-                <div class="card-content">
-                  <label v-bind:id="'card-content-' + card.id">内容</label>
-                  <textarea v-bind:name="'card-content-' + card.id" v-model="card.front.content"></textarea>
+                <div class="input-form card-title">
+                  <input v-bind:id="'card-title-' + card.id" type="text" v-bind:name="'card-title-' + card.id" v-model="card.front.title" value v-bind:style="'font-family: ' + card.front.font" v-on:focusin="focusInputForm" v-on:focusout="focusInputForm">
+                  <label v-bind:for="'card-title-' + card.id">タイトル</label>
+                </div>
+                <div class="input-form card-content">
+                  <textarea v-bind:id="'card-content-' + card.id" v-bind:name="'card-content-' + card.id" v-model="card.front.content" v-bind:style="'font-family: ' + card.front.font" v-on:focusin="focusInputForm" v-on:focusout="focusInputForm"></textarea>
+                  <label v-bind:for="'card-content-' + card.id">内容</label>
+                </div>
+                <div class="input-form card-font">
+                  <label class="focus" v-bind:for="'card-font-' + card.id">フォント</label>
+                  <select v-bind:id="'card-font-' + card.id" v-bind:name="'card-font-' + card.id" v-bind:id="'card-font-' + card.id" v-model="card.front.font" v-bind:style="'font-family: ' + card.front.font">
+                    <option class="font-sans-serif" value="sans-serif">sans-serif (default)</option>
+                    <option class="font-serif" value="serif">serif</option>
+                    <option class="font-kosugi" value="Kosugi">Kosugi</option>
+                    <option class="font-kosugi-maru" value="Kosugi Maru">Kosugi Maru</option>
+                    <option class="font-noto-sans-jp" value="Noto Sans JP">Noto Sans JP</option>
+                    <option class="font-noto-serif-jp" value="Noto Serif JP">Noto Serif JP</option>
+                    <option class="font-potta-one" value="Potta One">Potta One</option>
+                    <option class="font-reggae-one" value="Reggae One">Reggae One</option>
+                    <option class="font-yusei-magic" value="Yusei Magic">Yusei Magic</option>
+                  </select>
                 </div>
               </div>
               <div class="card-input-back">
-                <h2>【秘密】</h2>
-                <div class="card-title">
-                  <label v-bind:id="'card-back-heading-' + card.id">見出し</label>
-                  <input type="text" v-bind:name="'card-back-heading-' + card.id" v-model="card.back.heading" value>
+                <h2>ウラ</h2>
+                <div class="input-form card-name">
+                  <input v-bind:id="'card-back-name-' + card.id" type="text" v-bind:name="'card-back-name-' + card.id" v-model="card.back.name" value v-bind:style="'font-family: ' + card.back.name" v-on:focusin="focusInputForm" v-on:focusout="focusInputForm">
+                  <label class="focus" v-bind:for="'card-back-name-' + card.id">カード名</label>
                 </div>
-                <div class="card-title">
-                  <label v-bind:id="'card-back-title-' + card.id">タイトル</label>
-                  <input type="text" v-bind:name="'card-back-title-' + card.id" v-model="card.back.title" value>
+                <div class="input-form card-heading">
+                  <input v-bind:id="'card-back-heading-' + card.id" type="text" v-bind:name="'card-back-heading-' + card.id" v-model="card.back.heading" value v-bind:style="'font-family: ' + card.back.font" v-on:focusin="focusInputForm" v-on:focusout="focusInputForm">
+                  <label v-bind:for="'card-back-heading-' + card.id">見出し</label>
                 </div>
-                <div class="card-content">
-                  <label v-bind:id="'card-back-content-' + card.id">内容</label>
-                  <textarea v-bind:name="'card-back-content-' + card.id" v-model="card.back.content"></textarea>
+                <div class="input-form card-title">
+                  <input v-bind:id="'card-back-title-' + card.id" type="text" v-bind:name="'card-back-title-' + card.id" v-model="card.back.title" value v-bind:style="'font-family: ' + card.back.font" v-on:focusin="focusInputForm" v-on:focusout="focusInputForm">
+                  <label v-bind:for="'card-back-title-' + card.id">タイトル</label>
+                </div>
+                <div class="input-form card-content">
+                  <textarea v-bind:id="'card-back-content-' + card.id" v-bind:name="'card-back-content-' + card.id" v-model="card.back.content" v-bind:style="'font-family: ' + card.back.font" v-on:focusin="focusInputForm" v-on:focusout="focusInputForm"></textarea>
+                  <label v-bind:for="'card-back-content-' + card.id">内容</label>
+                </div>
+                <div class="input-form card-font">
+                  <label class="focus" v-bind:for="'card-back-font-' + card.id">フォント</label>
+                  <select v-bind:id="'card-back-font-' + card.id" v-bind:name="'card-back-font-' + card.id" v-bind:id="'card-back-font-' + card.id" v-model="card.back.font" v-bind:style="'font-family: ' + card.back.font">
+                    <option class="font-sans-serif" value="sans-serif">sans-serif (default)</option>
+                    <option class="font-serif" value="serif">serif</option>
+                    <option class="font-kosugi" value="Kosugi">Kosugi</option>
+                    <option class="font-kosugi-maru" value="Kosugi Maru">Kosugi Maru</option>
+                    <option class="font-noto-sans-jp" value="Noto Sans JP">Noto Sans JP</option>
+                    <option class="font-noto-serif-jp" value="Noto Serif JP">Noto Serif JP</option>
+                    <option class="font-potta-one" value="Potta One">Potta One</option>
+                    <option class="font-reggae-one" value="Reggae One">Reggae One</option>
+                    <option class="font-yusei-magic" value="Yusei Magic">Yusei Magic</option>
+                  </select>
                 </div>
               </div>
             </div>
-            <div class="text-middle">
+            <div class="delete-button">
               <button class="form-large-button" v-on:click="deleteCard" v-bind:id="'card-delete-button-' + card.id"
-                v-bind:data-cardnum="card.id">削除</button>
+                v-bind:data-cardnum="card.id"></button>
             </div>
           </div>
         </li>
       </ul>
       <div id="controller">
-        <button v-on:click="addCard">追加</button>
+        <button v-on:click="addCard">＋&nbsp;ハンドアウト追加</button>
       </div>
     </div>
     <div id="card-output" class="tab-content hidden">
