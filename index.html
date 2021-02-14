@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>trpg-handout-generator</title>
+  <title>trpg-handout-generator 2.1.0</title>
   <link rel="stylesheet" href="index.css">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
@@ -109,17 +109,18 @@
       </div>
     </div>
     <div id="card-output" class="tab-content hidden">
-      <div class="flex center caption">
+      <div class="flex column center caption">
         <!-- <button>まとめてダウンロード</button> -->
         <p>※画像は右クリックから保存してください</p>
+        <p>※キャンバスをクリックすると拡大します</p>
       </div>
       <ul class="flex center none-point-list">
         <li class="canvas-list" v-for="card in cardList">
-          <canvas width="350" height="500" class="card-canvas" v-bind:id="'card-front-canvas-' + card.id"
-            v-bind:data-canvasnum="card.id" data-type="front"></canvas>
+          <canvas width="700" height="1000" class="card-canvas" v-bind:id="'card-front-canvas-' + card.id"
+            v-bind:data-canvasnum="card.id" data-type="front" v-on:click="zoomCanvas"></canvas>
 
-          <canvas width="350" height="500" class="card-canvas" v-bind:id="'card-back-canvas-' + card.id"
-            v-bind:data-canvasnum="card.id" data-type="back"></canvas>
+          <canvas width="700" height="1000" class="card-canvas" v-bind:id="'card-back-canvas-' + card.id"
+            v-bind:data-canvasnum="card.id" data-type="back" v-on:click="zoomCanvas"></canvas>
         </li>
       </ul>
     </div>
