@@ -25,6 +25,19 @@
       <span id="card-output-tab" class="tab" data-target="card-output" v-on:click="toggleTabs">ハンドアウト出力</span>
     </div>
     <div id="card-input" class="tab-content">
+      <div id="global-setting-container">
+        <select id="global-font-setting" v-model="globalFontSetting" v-on:change="changeGlobalFont" v-bind:style="'font-family: ' + globalFontSetting">
+          <option class="font-sans-serif" value="sans-serif">sans-serif (default)</option>
+          <option class="font-serif" value="serif">serif</option>
+          <option class="font-kosugi" value="Kosugi">Kosugi</option>
+          <option class="font-kosugi-maru" value="Kosugi Maru">Kosugi Maru</option>
+          <option class="font-noto-sans-jp" value="Noto Sans JP">Noto Sans JP</option>
+          <option class="font-noto-serif-jp" value="Noto Serif JP">Noto Serif JP</option>
+          <option class="font-potta-one" value="Potta One">Potta One</option>
+          <option class="font-reggae-one" value="Reggae One">Reggae One</option>
+          <option class="font-yusei-magic" value="Yusei Magic">Yusei Magic</option>
+        </select>
+      </div>
       <ul class="none-point-list" id="input-area">
         <li v-for="card in cardList">
           <div class="flex">

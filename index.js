@@ -38,7 +38,8 @@ function hankana2Zenkana(str) {
         'ﾜ': 'ワ', 'ｦ': 'ヲ', 'ﾝ': 'ン',
         'ｧ': 'ァ', 'ｨ': 'ィ', 'ｩ': 'ゥ', 'ｪ': 'ェ', 'ｫ': 'ォ',
         'ｯ': 'ッ', 'ｬ': 'ャ', 'ｭ': 'ュ', 'ｮ': 'ョ',
-        '｡': '。', '､': '、', 'ｰ': 'ー', '｢': '「', '｣': '」', '･': '・'
+        '｡': '。', '､': '、', 'ｰ': 'ー', '｢': '「', '｣': '」', '･': '・',
+        '\"': '”', '\'': '’'
     }
 
     var reg = new RegExp('(' + Object.keys(kanaMap).join('|') + ')', 'g')
@@ -63,7 +64,7 @@ function han2zen(str) {
  * @param {number} id 
  */
 function generateFormObject(id) {
-    return {
+    var skeleton = {
         id: id,
         front: {
             name: 'ＨＡＮＤＯＵＴ',
@@ -80,6 +81,13 @@ function generateFormObject(id) {
             font: 'sans-serif'
         }
     }
+    var currentFont = document.querySelector('#global-font-setting')
+    if (currentFont && currentFont.value != '') {
+        skeleton.front.font = currentFont.value
+        skeleton.back.font = currentFont.value
+    }
+
+    return skeleton;
 }
 
 /**
@@ -108,6 +116,16 @@ function checkFormObjectNoUpdate(formObject) {
     })
 
     return emptyFlg
+}
+
+/**
+ * カードのフォントがデフォルトフォントから変更されていないことをチェックし
+ * 変更されていればtrueを、変更されていなければfalseを返す
+ * @param {object} formObject 
+ * @returns {boolean}
+ */
+function checkFormObjectFontNoUpdate(formObject) {
+    return false
 }
 
 /**
@@ -300,7 +318,8 @@ var vm = new Vue({
             generateFormObject(0)
         ],
         isAddCard: false,
-        isDeleteCard: false
+        isDeleteCard: false,
+        globalFontSetting: 'sans-serif'
     },
     updated: function() {
         allCanvasRedraw(this.cardList)
@@ -398,7 +417,37 @@ var vm = new Vue({
         },
         zoomCanvas: function(element) {
             element.target.classList.toggle('zoom')
-        }
+        },
+        checkAllCardNoUpdate: function() {
+            var isNotChanged = true
+            console.log(`globalFontSetting: ${this.globalFontSetting}`)
+            console.log(`global-font-setting: ${document.querySelector('#global-font-setting').value}`)
+            this.cardList.forEach(card => {
+                console.log(card.front.font)
+                console.log(card.back.font)
+                isNotChanged = isNotChanged && checkFormObjectNoUpdate(card)
+            })
+            return isNotChanged
+        },
+        changeGlobalFont: function(element) {
+            var cardList = this.cardList;
+
+            if (!this.globalFontSetting || this.globalFontSetting == '') {
+                return
+            }
+
+            if (!this.checkAllCardNoUpdate()) {
+                var resultConfirm = window.confirm('すでにフォントが指定されているカードがあります。すべてのカードのフォントを変更しますか？')
+                if (!resultConfirm) {
+                    return
+                }
+            }
+
+            cardList.forEach(card => {
+                card.front.font = this.globalFontSetting
+                card.back.font = this.globalFontSetting
+            });
+        },
     }
 })
 
