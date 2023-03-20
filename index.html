@@ -7,6 +7,8 @@
         <meta name="robots" content="nofollow" />
         <title>trpg-handout-generator 2.1.1</title>
         <link rel="stylesheet" href="index.css" />
+        <script src="lib/FileSaver.min.js"></script>
+        <script src="lib/jszip.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
 
@@ -31,41 +33,70 @@
             </div>
             <div id="card-input" class="tab-content">
                 <div id="global-setting-container">
-                    <select
-                        id="global-font-setting"
-                        v-model="globalFontSetting"
-                        v-on:change="changeGlobalFont"
-                        v-bind:style="'font-family: ' + globalFontSetting"
-                    >
-                        <option class="font-sans-serif" value="sans-serif">
-                            sans-serif (default)
-                        </option>
-                        <option class="font-serif" value="serif">serif</option>
-                        <option class="font-kosugi" value="Kosugi">
-                            Kosugi
-                        </option>
-                        <option class="font-kosugi-maru" value="Kosugi Maru">
-                            Kosugi Maru
-                        </option>
-                        <option class="font-noto-sans-jp" value="Noto Sans JP">
-                            Noto Sans JP
-                        </option>
-                        <option
-                            class="font-noto-serif-jp"
-                            value="Noto Serif JP"
+                    <div>
+                        <select
+                            id="global-font-setting"
+                            v-model="globalFontSetting"
+                            v-on:change="changeGlobalFont"
+                            v-bind:style="'font-family: ' + globalFontSetting"
                         >
-                            Noto Serif JP
-                        </option>
-                        <option class="font-potta-one" value="Potta One">
-                            Potta One
-                        </option>
-                        <option class="font-reggae-one" value="Reggae One">
-                            Reggae One
-                        </option>
-                        <option class="font-yusei-magic" value="Yusei Magic">
-                            Yusei Magic
-                        </option>
-                    </select>
+                            <option class="font-sans-serif" value="sans-serif">
+                                sans-serif (default)
+                            </option>
+                            <option class="font-serif" value="serif">
+                                serif
+                            </option>
+                            <option class="font-kosugi" value="Kosugi">
+                                Kosugi
+                            </option>
+                            <option
+                                class="font-kosugi-maru"
+                                value="Kosugi Maru"
+                            >
+                                Kosugi Maru
+                            </option>
+                            <option
+                                class="font-noto-sans-jp"
+                                value="Noto Sans JP"
+                            >
+                                Noto Sans JP
+                            </option>
+                            <option
+                                class="font-noto-serif-jp"
+                                value="Noto Serif JP"
+                            >
+                                Noto Serif JP
+                            </option>
+                            <option class="font-potta-one" value="Potta One">
+                                Potta One
+                            </option>
+                            <option class="font-reggae-one" value="Reggae One">
+                                Reggae One
+                            </option>
+                            <option
+                                class="font-yusei-magic"
+                                value="Yusei Magic"
+                            >
+                                Yusei Magic
+                            </option>
+                        </select>
+                    </div>
+                    <div id="text-import">
+                        <label class="file-input" for="text-import">
+                            <input
+                                type="file"
+                                name="text-import"
+                                id="text-import"
+                                v-on:change="importText"
+                                accept=".txt"
+                            />
+                        </label>
+                    </div>
+                    <div class="right">
+                        <button id="save-button" v-on:click="saveCanvasImage">
+                            保存
+                        </button>
+                    </div>
                 </div>
                 <ul class="none-point-list" id="input-area">
                     <li v-for="card in cardList">
@@ -372,21 +403,23 @@
                     <li class="canvas-list" v-for="card in cardList">
                         <div class="canvas-container" v-on:click="zoomCanvas">
                             <canvas
-                                width="700"
-                                height="1000"
+                                width="630"
+                                height="900"
                                 class="card-canvas"
                                 v-bind:id="'card-front-canvas-' + card.id"
                                 v-bind:data-canvasnum="card.id"
+                                v-bind:data-filename="card.front.filename"
                                 data-type="front"
                             ></canvas>
                         </div>
                         <div class="canvas-container" v-on:click="zoomCanvas">
                             <canvas
-                                width="700"
-                                height="1000"
+                                width="630"
+                                height="900"
                                 class="card-canvas"
                                 v-bind:id="'card-back-canvas-' + card.id"
                                 v-bind:data-canvasnum="card.id"
+                                v-bind:data-filename="card.back.filename"
                                 data-type="back"
                             ></canvas>
                         </div>
@@ -395,6 +428,9 @@
             </div>
         </main>
         <footer>
+            <div class="how-to-use">
+                <img src="image/question-mark.svg" alt="はてなマーク" />
+            </div>
             <div class="github-link">
                 <a
                     href="https://github.com/k-2480/trpg-handout-generator"
@@ -407,6 +443,8 @@
                 </a>
             </div>
         </footer>
+        <script src="card.xml.js"></script>
+        <script src="deck.xml.js"></script>
         <script src="index.js"></script>
     </body>
 </html>

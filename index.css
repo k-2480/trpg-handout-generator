@@ -43,8 +43,19 @@ footer {
 }
 
 #global-setting-container {
-  padding: 0.5rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 0.5rem;
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+#global-setting-container > div {
+  padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+#global-setting-container > div.right {
+  flex-grow: 1;
+  text-align: right;
 }
 
 .github-link {
@@ -60,6 +71,20 @@ footer {
   padding: 0.25rem;
 }
 .github-link>a>img {
+  width: 24px;
+}
+
+.how-to-use {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #EEE;
+  border-radius: 2px;
+  padding: 0.25rem;
+  margin-right: 0.1rem;
+  cursor: pointer;
+}
+.how-to-use>img {
   width: 24px;
 }
 
@@ -185,6 +210,7 @@ div.mark > span {
 .canvas-container {
   width: 25%;
   min-width: 300px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .zoom {

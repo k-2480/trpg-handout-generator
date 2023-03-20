@@ -123,6 +123,24 @@ function hankana2Zenkana(str) {
 }
 
 /**
+ * UUID ver4 を生成
+ */
+function generateUuid() {
+    let chars = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".split("");
+    for (let i = 0, l = chars.length; i < l; i++) {
+        switch (chars[i]) {
+            case "x":
+                chars[i] = Math.floor(Math.random() * 16).toString(16);
+                break;
+            case "y":
+                chars[i] = (Math.floor(Math.random() * 4) + 8).toString(16);
+                break;
+        }
+    }
+    return chars.join("");
+}
+
+/**
  * 半角をすべて全角に変換し返却する
  * @param {String} str
  */
@@ -143,6 +161,7 @@ function generateFormObject(id) {
             heading: "",
             content: "",
             font: "sans-serif",
+            filename: generateUuid(),
         },
         back: {
             name: "ＨＡＮＤＯＵＴ",
@@ -150,6 +169,7 @@ function generateFormObject(id) {
             heading: "",
             content: "",
             font: "sans-serif",
+            filename: generateUuid(),
         },
     };
     var currentFont = document.querySelector("#global-font-setting");
@@ -324,9 +344,9 @@ function allCanvasRedraw(cardList) {
 
         /* タイトル */
         var titleParam = {
-            left: 170,
+            left: cardLayoutInfo.title.left + 10,
             top: 100,
-            maxWidth: 500,
+            maxWidth: element.width - cardLayoutInfo.title.left - fontSize,
         };
         context.fillStyle = "black";
         oldFont = context.font;
@@ -453,6 +473,10 @@ var vm = new Vue({
         }
     },
     methods: {
+        window: (onload = function () {
+            this.document.querySelector("#card-output-tab").click();
+            this.document.querySelector("#card-input-tab").click();
+        }),
         addCard: function () {
             var maxCardId = 0;
 
@@ -544,6 +568,9 @@ var vm = new Vue({
         },
         zoomCanvas: function (element) {
             let canvasContainer = element.target.parentNode;
+            if (element.target.tagName != "CANVAS") {
+                return;
+            }
             canvasContainer.classList.toggle("zoom");
         },
         checkAllCardNoUpdate: function () {
@@ -581,6 +608,73 @@ var vm = new Vue({
                 card.front.font = this.globalFontSetting;
                 card.back.font = this.globalFontSetting;
             });
+        },
+        saveCanvasImage: function () {
+            var zip = new JSZip();
+            var canvases = document.querySelectorAll("canvas.card-canvas");
+            var promises = new Array();
+            var cardXmlList = new Array();
+            var deckXml = "";
+            var cardList = this.cardList;
+
+            canvases.forEach((canvas) => {
+                promises.push(
+                    new Promise((resolve) => {
+                        var cardInfo = cardList[canvas.dataset.canvasnum];
+                        canvas.toBlob((blob) => {
+                            var arrayBuffer = blob.arrayBuffer();
+                            arrayBuffer.then((result) => {
+                                crypto.subtle
+                                    .digest("SHA-256", result)
+                                    .then((hashBuffer) => {
+                                        var hashArray = Array.from(
+                                            new Uint8Array(hashBuffer)
+                                        );
+                                        var hashHex = hashArray
+                                            .map((b) =>
+                                                b.toString(16).padStart(2, "0")
+                                            )
+                                            .join("");
+                                        zip.file(hashHex + ".png", blob, {
+                                            base64: true,
+                                        });
+                                        if (canvas.dataset.type == "front") {
+                                            cardInfo.front.filename = hashHex;
+                                        } else {
+                                            cardInfo.back.filename = hashHex;
+                                        }
+                                        resolve(hashHex);
+                                    });
+                            });
+                        });
+                    })
+                );
+            });
+
+            Promise.all(promises).then(function (values) {
+                cardList.forEach((card) => {
+                    console.log(card.id);
+                    cardXmlList.push(
+                        createCardXml(
+                            card.front.filename,
+                            card.back.filename,
+                            card.front.title,
+                            card.back.title,
+                            card.back.content
+                        )
+                    );
+                });
+                deckXml = createDeckXml(cardXmlList);
+                zip.file("data.xml", deckXml);
+                zip.generateAsync({ type: "blob" }).then(function (content) {
+                    console.log("to save");
+                    console.log(zip.file);
+                    saveAs(content, "test.zip");
+                });
+            });
+        },
+        importText: function (element) {
+            alert(element);
         },
     },
 });
