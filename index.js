@@ -670,7 +670,18 @@ var vm = new Vue({
                 zip.generateAsync({ type: "blob" }).then(function (content) {
                     console.log("to save");
                     console.log(zip.file);
-                    saveAs(content, "test.zip");
+                    var date = new Date();
+                    var dateToStr =
+                        "" +
+                        date.getFullYear() +
+                        ("0" + (date.getMonth() + 1.0)).slice(-2) +
+                        date.getDate() +
+                        date.getHours() +
+                        date.getMinutes() +
+                        date.getSeconds();
+                    console.log(dateToStr);
+
+                    saveAs(content, `xml_${dateToStr}_handout_udonarium.zip`);
                 });
             });
         },
@@ -681,6 +692,16 @@ var vm = new Vue({
             const reader = new FileReader();
             let _self = this;
             let cardList = _self.cardList;
+
+            if (
+                !window.confirm(
+                    "テキストからインポートするとすべてのハンドアウトデータが消えますがよろしいですか？"
+                )
+            ) {
+                e.target.value = "";
+                return;
+            }
+
             reader.readAsText(importedFile);
             reader.onload = function () {
                 const importedText = reader.result;
@@ -748,6 +769,7 @@ var vm = new Vue({
                     }
                 }
             };
+            e.target.value = "";
         },
     },
 });
