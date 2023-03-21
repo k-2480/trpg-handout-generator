@@ -31,15 +31,31 @@ select {
   border-bottom: 1px solid #AAA;
 }
 
-header {
+footer {
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0;
-  right: 10px;
+  bottom: 0;
+  right: 7px;
   z-index: 2;
-  height: 3.5rem;
+  height: 3rem;
+}
+
+#global-setting-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+#global-setting-container > div {
+  padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+#global-setting-container > div.right {
+  flex-grow: 1;
+  text-align: right;
 }
 
 .github-link {
@@ -55,6 +71,23 @@ header {
   padding: 0.25rem;
 }
 .github-link>a>img {
+  width: 24px;
+}
+
+.how-to-use {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #EEE;
+  border-radius: 2px;
+  margin-right: 0.1rem;
+  cursor: pointer;
+}
+.how-to-use>a {
+  display: flex;
+  padding: 0.25rem;
+}
+.how-to-use>a>img {
   width: 24px;
 }
 
@@ -120,7 +153,6 @@ header {
   z-index: 0;
 }
 
-
 .delete-button>button {
   border: none;
   background: transparent;
@@ -129,7 +161,7 @@ header {
 .delete-button>button::after {
   content: "";
   position: absolute;
-  top: 17px;
+  top: 18px;
   right: 7px;
   width: 25px;
   height: 5px;
@@ -155,31 +187,41 @@ div.mark {
   display: flex;
   justify-content: center;
   border: 1px solid black;
-  width: 3rem;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
   font-weight: bold;
-  padding-top: 1rem;
+  flex-grow: 1;
+  min-width: 4rem;
 }
 
-.hidden {
-  display: none;
+div.mark > span {
+  padding: 0.5rem;
 }
 
 .card-canvas {
   display: block;
   border: 1px solid black;
-  width: 350px;
-  height: 500px;
-  transition: .2s;
+  width: 100%;
+  height: auto;
   cursor: zoom-in;
 }
 
+.canvas-container {
+  width: 25%;
+  min-width: 300px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 .zoom {
-  width: 700px;
-  height: 1000px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   cursor: zoom-out;
+  z-index: 9999;
+  overflow-y: scroll;
 }
 
 #input-area li {
@@ -192,7 +234,8 @@ div.mark {
 .card-form-group {
   display: flex;
   flex-direction: row;
-  flex-grow: 10;
+  flex-grow: 20;
+  flex-wrap: wrap;
 }
 
 .card-form-group h2 {
@@ -211,6 +254,8 @@ div.mark {
   flex-wrap: wrap;
   flex-direction: column;
   flex-basis: 50%;
+  min-width: 250px;
+  flex-grow: 1;
   padding: 1rem;
 }
 
@@ -220,6 +265,8 @@ div.mark {
   flex-wrap: wrap;
   flex-direction: column;
   flex-basis: 50%;
+  min-width: 250px;
+  flex-grow: 1;
   padding: 1rem;
 }
 
@@ -344,8 +391,32 @@ button {
   cursor: pointer;
 }
 
+#how-to-use-modal {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  padding: 1.5rem;
+  justify-content: center;
+  align-items: start;
+  overflow-y: scroll;
+}
+
+.modal {
+  background-color: antiquewhite;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  width: 100%;
+  border-radius: 5px;
+}
+
 .canvas-list {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 0.5rem;
 }
 
@@ -388,4 +459,39 @@ button {
 
 .font-sans-serif {
   font-family: sans-serif;
+}
+
+section > h1,
+section > h2 {
+  padding-top: 2rem;
+}
+
+.fit {
+  width: 100%;
+}
+
+.how-to-list dt {
+  padding-top: 1rem;
+  font-weight: bold;
+}
+
+.how-to-list dd {
+  margin-left: 1rem;
+}
+
+.how-to-list dd div {
+  text-indent: 0;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  background-color: white;
+  padding: 1rem;
+  word-wrap: normal;
+}
+
+.hidden {
+  display: none;
+}
+
+#how-to-use-modal.hidden {
+  display: none;
 }
