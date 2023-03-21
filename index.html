@@ -2,7 +2,10 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
         <meta name="robots" content="noindex" />
         <meta name="robots" content="nofollow" />
         <title>trpg-handout-generator 2.1.1</title>
@@ -21,14 +24,14 @@
                     class="tab active"
                     data-target="card-input"
                     v-on:click="toggleTabs"
-                    >ハンドアウト入力</span
+                    >入力</span
                 >
                 <span
                     id="card-output-tab"
                     class="tab"
                     data-target="card-output"
                     v-on:click="toggleTabs"
-                    >ハンドアウト出力</span
+                    >プレビュー</span
                 >
             </div>
             <div id="card-input" class="tab-content">
@@ -94,7 +97,7 @@
                     </div>
                     <div class="right">
                         <button id="save-button" v-on:click="saveCanvasImage">
-                            保存
+                            ZIPで保存(Udonarium対応)
                         </button>
                     </div>
                 </div>
@@ -395,8 +398,6 @@
             </div>
             <div id="card-output" class="tab-content hidden">
                 <div class="flex column center caption">
-                    <!-- <button>まとめてダウンロード</button> -->
-                    <p>※画像は右クリックから保存してください</p>
                     <p>※キャンバスをクリックすると拡大します</p>
                 </div>
                 <ul class="flex center none-point-list">
@@ -426,10 +427,79 @@
                     </li>
                 </ul>
             </div>
+            <div id="how-to-use-modal" class="hidden" onclick="showManual()">
+                <div class="modal">
+                    <section>
+                        <h1>ハンドアウト生成機 ver3.0</h1>
+                        <p>
+                            サイコロフィクション系のシステムでつかうハンドアウトを作成するツールです。
+                        </p>
+                    </section>
+                    <section>
+                        <h2>使い方</h2>
+                        <img
+                            src="image/screenshot1.png"
+                            alt="アプリの画面"
+                            srcset=""
+                            class="fit"
+                        />
+                        <dl class="how-to-list">
+                            <dt>❶入力タブ</dt>
+                            <dd>
+                                ハンドアウト内容を入力する画面に切り替えます。
+                            </dd>
+                            <dt>❷プレビュータブ</dt>
+                            <dd>
+                                入力内容のカード上での表示を確認できる画面に切り替えます。
+                            </dd>
+                            <dt>❸全体フォントタブ</dt>
+                            <dd>
+                                ハンドアウトで使うフォントを一括で変更します。
+                            </dd>
+                            <dt>❹テキストインポート</dt>
+                            <dd>
+                                ハンドアウトをテキストから一括でインポートします。以下のようなテキストファイルからの取り込みが可能です。
+                                <div>
+                                    ハンドアウト<br />
+                                    名前:PC①<br />
+                                    あなたは忍者だ。あなたの【使命】は忍務を成功させることだ。<br />
+                                    秘密:PC①<br />
+                                    あなたは実は忍者ではない。【一般人】だ。あなたの【本当の使命】は生き残ることだ。<br />
+                                    --<br />
+                                    プライズ<br />
+                                    名前:手裏剣<br />
+                                    鋭い手裏剣。<br />
+                                    <br />
+                                    四方、八方、六方手裏剣。<br />
+                                    秘密:手裏剣<br />
+                                    映画村で買った土産である。<br />
+                                    --<br />
+                                    ：<br />
+                                    ：
+                                </div>
+                            </dd>
+                            <dt>❺ZIP形式一括保存</dt>
+                            <dd>
+                                入力したハンドアウトをZIP形式で一括保存します。保存したZIPはUdonarium上にドラッグ＆ドロップすることでそのままデッキとして使えます。
+                            </dd>
+                            <dt>❻ハンドアウト</dt>
+                            <dd>
+                                ハンドアウトの内容を手入力することができます。ハンドアウトごとにフォントを個別に指定できます。
+                            </dd>
+                            <dt>❼削除ボタン</dt>
+                            <dd>ハンドアウトを削除します。</dd>
+                            <dt>❽追加ボタン</dt>
+                            <dd>ハンドアウトを追加します。</dd>
+                        </dl>
+                    </section>
+                </div>
+            </div>
         </main>
         <footer>
             <div class="how-to-use">
-                <img src="image/question-mark.svg" alt="はてなマーク" />
+                <a href="#" onclick="showManual()">
+                    <img src="image/question-mark.svg" alt="はてなマーク" />
+                </a>
             </div>
             <div class="github-link">
                 <a

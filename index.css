@@ -80,11 +80,14 @@ footer {
   align-items: center;
   background: #EEE;
   border-radius: 2px;
-  padding: 0.25rem;
   margin-right: 0.1rem;
   cursor: pointer;
 }
-.how-to-use>img {
+.how-to-use>a {
+  display: flex;
+  padding: 0.25rem;
+}
+.how-to-use>a>img {
   width: 24px;
 }
 
@@ -189,14 +192,11 @@ div.mark {
   color: white;
   font-weight: bold;
   flex-grow: 1;
+  min-width: 4rem;
 }
 
 div.mark > span {
   padding: 0.5rem;
-}
-
-.hidden {
-  display: none;
 }
 
 .card-canvas {
@@ -391,6 +391,28 @@ button {
   cursor: pointer;
 }
 
+#how-to-use-modal {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  padding: 1.5rem;
+  justify-content: center;
+  align-items: start;
+  overflow-y: scroll;
+}
+
+.modal {
+  background-color: antiquewhite;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  width: 100%;
+  border-radius: 5px;
+}
+
 .canvas-list {
   display: flex;
   flex-wrap: wrap;
@@ -437,4 +459,39 @@ button {
 
 .font-sans-serif {
   font-family: sans-serif;
+}
+
+section > h1,
+section > h2 {
+  padding-top: 2rem;
+}
+
+.fit {
+  width: 100%;
+}
+
+.how-to-list dt {
+  padding-top: 1rem;
+  font-weight: bold;
+}
+
+.how-to-list dd {
+  margin-left: 1rem;
+}
+
+.how-to-list dd div {
+  text-indent: 0;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  background-color: white;
+  padding: 1rem;
+  word-wrap: normal;
+}
+
+.hidden {
+  display: none;
+}
+
+#how-to-use-modal.hidden {
+  display: none;
 }

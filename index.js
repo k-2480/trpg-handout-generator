@@ -465,6 +465,7 @@ var vm = new Vue({
         allCanvasRedraw(this.cardList);
         if (this.isAddCard) {
             this.scrollWindow();
+            this.resetFocusInputForm();
             this.isAddCard = false;
         }
         if (this.isDeleteCard) {
@@ -673,8 +674,80 @@ var vm = new Vue({
                 });
             });
         },
-        importText: function (element) {
-            alert(element);
+        importText: function (e) {
+            this.cardList = [generateFormObject(0)];
+            const files = e.target.files;
+            const importedFile = files[0];
+            const reader = new FileReader();
+            let _self = this;
+            let cardList = _self.cardList;
+            reader.readAsText(importedFile);
+            reader.onload = function () {
+                const importedText = reader.result;
+
+                const lines = importedText.replace(/\r/g, "").split("\n");
+                var isCaption = true;
+                var isFrontTitle = false;
+                var isFrontContent = false;
+                var isBackTitle = false;
+                var isBackContent = false;
+                var cardIndex = 0;
+
+                for (const line of lines) {
+                    if (cardList.length <= cardIndex) {
+                        console.log(cardList.length + " card追加");
+                        _self.addCard();
+                    }
+                    if (isCaption) {
+                        console.log("captionの追加 " + line.trim());
+                        cardList[cardIndex].front.name = line.trim();
+                        cardList[cardIndex].back.name = line.trim();
+                        isCaption = false;
+                        isFrontTitle = true;
+                    } else if (isFrontTitle) {
+                        console.log("FrontTitleの追加 " + line.trim());
+                        if (line.trim().includes(":")) {
+                            let headAndTitle = line.trim().split(":");
+                            cardList[cardIndex].front.heading = headAndTitle[0];
+                            cardList[cardIndex].front.title = headAndTitle[1];
+                        }
+                        isFrontTitle = false;
+                        isFrontContent = true;
+                    } else if (isFrontContent) {
+                        isBackTitle = line.trim().includes(":");
+                        if (!isBackTitle && !line.match(/^--/g)) {
+                            console.log("FrontContentの追加 " + line.trim());
+                            let content = cardList[cardIndex].front.content;
+                            if (content) content += "\n";
+                            content += line.trim();
+                            cardList[cardIndex].front.content = content;
+                        } else if (isBackTitle) {
+                            console.log("BackTitleの追加 " + line.trim());
+                            let headAndTitle = line.trim().split(":");
+                            cardList[cardIndex].back.heading = headAndTitle[0];
+                            cardList[cardIndex].back.title = headAndTitle[1];
+                            isBackTitle = false;
+                            isFrontContent = false;
+                            isBackContent = true;
+                        } else {
+                            isFrontContent = false;
+                            isBackContent = true;
+                        }
+                    } else if (isBackContent) {
+                        console.log("BackContentの追加 " + line.trim());
+                        if (!line.match(/^--/g)) {
+                            let content = cardList[cardIndex].back.content;
+                            if (content) content += "\n";
+                            content += line.trim();
+                            cardList[cardIndex].back.content = content;
+                        } else {
+                            isBackContent = false;
+                            isCaption = true;
+                            cardIndex++;
+                        }
+                    }
+                }
+            };
         },
     },
 });
@@ -685,3 +758,7 @@ window.onbeforeunload = function (event) {
     event.returnValue =
         "ページをリロードすると内容が失われますがよろしいですか？";
 };
+
+function showManual() {
+    document.querySelector("#how-to-use-modal").classList.toggle("hidden");
+}
