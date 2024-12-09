@@ -6,7 +6,8 @@ function escapeXml(escapeStr) {
         '"': "&gt;",
         "&": "&amp;",
     };
-    return escapeStr.replace(/"'<>&/g, function (s) {
+    let reg = new RegExp("(" + Object.keys(replaceMap).join("|") + ")", "g");
+    return escapeStr.replace(reg, function (s) {
         return replaceMap[s];
     });
 }

@@ -46,40 +46,20 @@
                             <option class="font-sans-serif" value="sans-serif">
                                 sans-serif (default)
                             </option>
-                            <option class="font-serif" value="serif">
-                                serif
-                            </option>
-                            <option class="font-kosugi" value="Kosugi">
-                                Kosugi
-                            </option>
-                            <option
-                                class="font-kosugi-maru"
-                                value="Kosugi Maru"
-                            >
+                            <option class="font-serif" value="serif">serif</option>
+                            <option class="font-kosugi" value="Kosugi">Kosugi</option>
+                            <option class="font-kosugi-maru" value="Kosugi Maru">
                                 Kosugi Maru
                             </option>
-                            <option
-                                class="font-noto-sans-jp"
-                                value="Noto Sans JP"
-                            >
+                            <option class="font-noto-sans-jp" value="Noto Sans JP">
                                 Noto Sans JP
                             </option>
-                            <option
-                                class="font-noto-serif-jp"
-                                value="Noto Serif JP"
-                            >
+                            <option class="font-noto-serif-jp" value="Noto Serif JP">
                                 Noto Serif JP
                             </option>
-                            <option class="font-potta-one" value="Potta One">
-                                Potta One
-                            </option>
-                            <option class="font-reggae-one" value="Reggae One">
-                                Reggae One
-                            </option>
-                            <option
-                                class="font-yusei-magic"
-                                value="Yusei Magic"
-                            >
+                            <option class="font-potta-one" value="Potta One">Potta One</option>
+                            <option class="font-reggae-one" value="Reggae One">Reggae One</option>
+                            <option class="font-yusei-magic" value="Yusei Magic">
                                 Yusei Magic
                             </option>
                         </select>
@@ -121,9 +101,7 @@
                                             v-on:focusin="focusInputForm"
                                             v-on:focusout="focusInputForm"
                                         />
-                                        <label
-                                            class="focus"
-                                            v-bind:for="'card-name-' + card.id"
+                                        <label class="focus" v-bind:for="'card-name-' + card.id"
                                             >カード名</label
                                         >
                                     </div>
@@ -138,10 +116,7 @@
                                             v-on:focusin="focusInputForm"
                                             v-on:focusout="focusInputForm"
                                         />
-                                        <label
-                                            v-bind:for="'card-heading-' + card.id"
-                                            >見出し</label
-                                        >
+                                        <label v-bind:for="'card-heading-' + card.id">見出し</label>
                                     </div>
                                     <div class="input-form card-title">
                                         <input
@@ -154,10 +129,7 @@
                                             v-on:focusin="focusInputForm"
                                             v-on:focusout="focusInputForm"
                                         />
-                                        <label
-                                            v-bind:for="'card-title-' + card.id"
-                                            >タイトル</label
-                                        >
+                                        <label v-bind:for="'card-title-' + card.id">タイトル</label>
                                     </div>
                                     <div class="input-form card-content">
                                         <textarea
@@ -168,15 +140,10 @@
                                             v-on:focusin="focusInputForm"
                                             v-on:focusout="focusInputForm"
                                         ></textarea>
-                                        <label
-                                            v-bind:for="'card-content-' + card.id"
-                                            >内容</label
-                                        >
+                                        <label v-bind:for="'card-content-' + card.id">内容</label>
                                     </div>
                                     <div class="input-form card-font">
-                                        <label
-                                            class="focus"
-                                            v-bind:for="'card-font-' + card.id"
+                                        <label class="focus" v-bind:for="'card-font-' + card.id"
                                             >フォント</label
                                         >
                                         <select
@@ -186,34 +153,17 @@
                                             v-model="card.front.font"
                                             v-bind:style="'font-family: ' + card.front.font"
                                         >
-                                            <option
-                                                class="font-sans-serif"
-                                                value="sans-serif"
-                                            >
+                                            <option class="font-sans-serif" value="sans-serif">
                                                 sans-serif (default)
                                             </option>
-                                            <option
-                                                class="font-serif"
-                                                value="serif"
-                                            >
-                                                serif
-                                            </option>
-                                            <option
-                                                class="font-kosugi"
-                                                value="Kosugi"
-                                            >
+                                            <option class="font-serif" value="serif">serif</option>
+                                            <option class="font-kosugi" value="Kosugi">
                                                 Kosugi
                                             </option>
-                                            <option
-                                                class="font-kosugi-maru"
-                                                value="Kosugi Maru"
-                                            >
+                                            <option class="font-kosugi-maru" value="Kosugi Maru">
                                                 Kosugi Maru
                                             </option>
-                                            <option
-                                                class="font-noto-sans-jp"
-                                                value="Noto Sans JP"
-                                            >
+                                            <option class="font-noto-sans-jp" value="Noto Sans JP">
                                                 Noto Sans JP
                                             </option>
                                             <option
@@ -222,22 +172,13 @@
                                             >
                                                 Noto Serif JP
                                             </option>
-                                            <option
-                                                class="font-potta-one"
-                                                value="Potta One"
-                                            >
+                                            <option class="font-potta-one" value="Potta One">
                                                 Potta One
                                             </option>
-                                            <option
-                                                class="font-reggae-one"
-                                                value="Reggae One"
-                                            >
+                                            <option class="font-reggae-one" value="Reggae One">
                                                 Reggae One
                                             </option>
-                                            <option
-                                                class="font-yusei-magic"
-                                                value="Yusei Magic"
-                                            >
+                                            <option class="font-yusei-magic" value="Yusei Magic">
                                                 Yusei Magic
                                             </option>
                                         </select>
@@ -273,8 +214,7 @@
                                             v-on:focusin="focusInputForm"
                                             v-on:focusout="focusInputForm"
                                         />
-                                        <label
-                                            v-bind:for="'card-back-heading-' + card.id"
+                                        <label v-bind:for="'card-back-heading-' + card.id"
                                             >見出し</label
                                         >
                                     </div>
@@ -289,8 +229,7 @@
                                             v-on:focusin="focusInputForm"
                                             v-on:focusout="focusInputForm"
                                         />
-                                        <label
-                                            v-bind:for="'card-back-title-' + card.id"
+                                        <label v-bind:for="'card-back-title-' + card.id"
                                             >タイトル</label
                                         >
                                     </div>
@@ -303,8 +242,7 @@
                                             v-on:focusin="focusInputForm"
                                             v-on:focusout="focusInputForm"
                                         ></textarea>
-                                        <label
-                                            v-bind:for="'card-back-content-' + card.id"
+                                        <label v-bind:for="'card-back-content-' + card.id"
                                             >内容</label
                                         >
                                     </div>
@@ -321,34 +259,17 @@
                                             v-model="card.back.font"
                                             v-bind:style="'font-family: ' + card.back.font"
                                         >
-                                            <option
-                                                class="font-sans-serif"
-                                                value="sans-serif"
-                                            >
+                                            <option class="font-sans-serif" value="sans-serif">
                                                 sans-serif (default)
                                             </option>
-                                            <option
-                                                class="font-serif"
-                                                value="serif"
-                                            >
-                                                serif
-                                            </option>
-                                            <option
-                                                class="font-kosugi"
-                                                value="Kosugi"
-                                            >
+                                            <option class="font-serif" value="serif">serif</option>
+                                            <option class="font-kosugi" value="Kosugi">
                                                 Kosugi
                                             </option>
-                                            <option
-                                                class="font-kosugi-maru"
-                                                value="Kosugi Maru"
-                                            >
+                                            <option class="font-kosugi-maru" value="Kosugi Maru">
                                                 Kosugi Maru
                                             </option>
-                                            <option
-                                                class="font-noto-sans-jp"
-                                                value="Noto Sans JP"
-                                            >
+                                            <option class="font-noto-sans-jp" value="Noto Sans JP">
                                                 Noto Sans JP
                                             </option>
                                             <option
@@ -357,22 +278,13 @@
                                             >
                                                 Noto Serif JP
                                             </option>
-                                            <option
-                                                class="font-potta-one"
-                                                value="Potta One"
-                                            >
+                                            <option class="font-potta-one" value="Potta One">
                                                 Potta One
                                             </option>
-                                            <option
-                                                class="font-reggae-one"
-                                                value="Reggae One"
-                                            >
+                                            <option class="font-reggae-one" value="Reggae One">
                                                 Reggae One
                                             </option>
-                                            <option
-                                                class="font-yusei-magic"
-                                                value="Yusei Magic"
-                                            >
+                                            <option class="font-yusei-magic" value="Yusei Magic">
                                                 Yusei Magic
                                             </option>
                                         </select>
@@ -391,9 +303,7 @@
                     </li>
                 </ul>
                 <div id="controller">
-                    <button v-on:click="addCard">
-                        ＋&nbsp;ハンドアウト追加
-                    </button>
+                    <button v-on:click="addCard">＋&nbsp;ハンドアウト追加</button>
                 </div>
             </div>
             <div id="card-output" class="tab-content hidden">
@@ -437,25 +347,14 @@
                     </section>
                     <section>
                         <h2>使い方</h2>
-                        <img
-                            src="image/screenshot1.png"
-                            alt="アプリの画面"
-                            srcset=""
-                            class="fit"
-                        />
+                        <img src="image/screenshot1.png" alt="アプリの画面" srcset="" class="fit" />
                         <dl class="how-to-list">
                             <dt>❶入力タブ</dt>
-                            <dd>
-                                ハンドアウト内容を入力する画面に切り替えます。
-                            </dd>
+                            <dd>ハンドアウト内容を入力する画面に切り替えます。</dd>
                             <dt>❷プレビュータブ</dt>
-                            <dd>
-                                入力内容のカード上での表示を確認できる画面に切り替えます。
-                            </dd>
+                            <dd>入力内容のカード上での表示を確認できる画面に切り替えます。</dd>
                             <dt>❸全体フォントタブ</dt>
-                            <dd>
-                                ハンドアウトで使うフォントを一括で変更します。
-                            </dd>
+                            <dd>ハンドアウトで使うフォントを一括で変更します。</dd>
                             <dt>❹テキストインポート</dt>
                             <dd>
                                 ハンドアウトをテキストから一括でインポートします。以下のようなテキストファイルからの取り込みが可能です。
@@ -502,14 +401,8 @@
                 </a>
             </div>
             <div class="github-link">
-                <a
-                    href="https://github.com/k-2480/trpg-handout-generator"
-                    target="_blank"
-                >
-                    <img
-                        src="image/mark-github.svg"
-                        alt="Githubのロゴアイコン"
-                    />
+                <a href="https://github.com/k-2480/trpg-handout-generator" target="_blank">
+                    <img src="image/mark-github.svg" alt="Githubのロゴアイコン" />
                 </a>
             </div>
         </footer>
